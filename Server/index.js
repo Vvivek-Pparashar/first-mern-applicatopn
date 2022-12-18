@@ -2,9 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-require("dotenv").config();
-
 const connectDB = require("./db/connect.js");
+const router = require('./routes/posts');
+require("dotenv").config();
 
 const app = express();
 
@@ -15,9 +15,8 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 // ============================    ROUTES          ==========================
-app.get("/", (req, res) => {
-  res.status(200).send("<h1>Vivek Is Gr8</h1>");
-});
+
+app.use('/', router);
 
 // ======================== LISTENING TO SERVER ===========================
 
