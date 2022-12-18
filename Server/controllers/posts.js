@@ -24,8 +24,19 @@ const updatePost = async (req, res) => {
 
 // ============================ DELETE THE POST ===========================
 
-const deletePost = (req, res) => {
-  res.send("vivek is gr8 post deleted");
+const deletePost = async (req, res) => {
+  try {
+    const { id: postId } = req.params;
+    const post = await PostMessage.findOneAndDelete({ _id: postId });
+
+    if (!post) {
+      res.status(404).send("id not valid");
+    }
+
+    res.status(200).json({ post });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 };
 
 // ============================ CREATE THE POST ===========================

@@ -15,7 +15,7 @@ const postSchema = new mongoose.Schema({
     maxlength: [300, "title cant ba of more than 20 words"],
   },
 
-  creator: String,
+  owner: String,
   tags: [String],
   selectedFile: String,
   likeCount: {
