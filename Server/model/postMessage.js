@@ -1,32 +1,28 @@
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
-  title: {
+  company_name: {
     type: String,
     trim: true,
-    required: [true, "must provide title to your company"],
-    maxlength: [30, "title cant ba of more than 20 words"],
+    required: [true, "must provide name"],
+    maxlength: [20, "name cant ba of more than 20 words"],
   },
-
-  message: {
+  email: {
     type: String,
     trim: true,
-    required: [true, "must provide message to your company"],
-    maxlength: [300, "title cant ba of more than 20 words"],
+    required: [true, "must provide name"],
   },
-
-  owner: String,
-  tags: [String],
-  selectedFile: String,
-  likeCount: {
-    type: Number,
-    default: 0,
+  website: {
+    type: String,
+    trim: true,
+    required: [true, "must provide name"],
   },
-
-  createdAt: {
-    type: Date,
-    default: new Date(),
+  details: {
+    type: String,
+    trim: true,
+    required: [true, "must provide name"],
   },
+  file: String,
 });
 
 const PostMessage = mongoose.model("PostMessage", postSchema);

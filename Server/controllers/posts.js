@@ -7,7 +7,7 @@ const getAllPosts = async (req, res) => {
     const post = await PostMessage.find({});
     res.status(200).send(post);
   } catch (error) {
-    res.send(500).send(error.message);
+    res.status(500).send(error.message);
   }
 };
 
@@ -18,7 +18,7 @@ const updatePost = async (req, res) => {
     const post = await PostMessage.create(req.body);
     res.status(200).send({ post });
   } catch (error) {
-    res.send(500).send(error.message);
+    res.status(500).send(error.message);
   }
 };
 
@@ -46,7 +46,7 @@ const createPost = async (req, res) => {
     const post = await PostMessage.create(req.body);
     res.status(200).send({ post });
   } catch (error) {
-    res.send(500).send(error.message);
+    res.status(500).send(error.message);
   }
 };
 
