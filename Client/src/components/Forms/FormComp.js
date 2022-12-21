@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Upload } from "antd";
+import { Button, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { createPost } from "../api";
 import FileBase64 from "react-file-base64";
@@ -24,6 +23,13 @@ const App = () => {
   };
   const onFinish = (values) => {
     console.log(values);
+    setPostData({
+      company_name: "",
+      email: "",
+      website: "",
+      details: "",
+      file: "",
+    });
   };
   return (
     <Form
