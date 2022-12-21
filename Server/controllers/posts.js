@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const PostMessage = require("../model/postMessage");
 
 // ============================ GET ALL THE POSTS =========================
@@ -14,8 +15,16 @@ const getAllPosts = async (req, res) => {
 // ============================ UPDATE THE POST ===========================
 
 const updatePost = async (req, res) => {
+  const { id, _id } = req.params;
+
+  if (!mongoose.isValidObjectId(_id))
+    return res.status(404).send("id not valid");
+
   try {
-    const post = await PostMessage.create(req.body);
+    const new_post = { ...req.body, _id };
+    const post = await PostMessage.findByIdAndUpdate(_id, new_post, {
+      new: true,
+    });
     res.status(200).send({ post });
   } catch (error) {
     res.status(500).send(error.message);

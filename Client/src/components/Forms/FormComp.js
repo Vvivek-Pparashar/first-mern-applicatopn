@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+// import { useSelector } from "react-redux";
 import { Button, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { createPost } from "../api";
 import FileBase64 from "react-file-base64";
 
 const App = () => {
+  const currentID= 0;
+  // const posts = useSelector((state) => state.posts.find((p)=>p.id === currentID) : null);
   const [postData, setPostData] = useState({
     company_name: "",
     email: "",
@@ -12,6 +15,10 @@ const App = () => {
     details: "",
     file: "",
   });
+
+  // useEffect(()=>{
+  //   if(post) setPostData(post);
+  // }, [post])
 
   console.log(postData);
 
@@ -21,6 +28,10 @@ const App = () => {
     console.log(postData);
     dispatch(createPost(postData));
   };
+
+  const clear = ()=>{
+    // setCurrentID(null)
+  }
   const onFinish = (values) => {
     console.log(values);
     setPostData({
@@ -41,9 +52,10 @@ const App = () => {
         flexDirection: "column",
         alignItems: "center",
         width: "100%",
+        borderRadius: "10px",
       }}
     >
-      <h1 style={{ marginTop: 0 }}>List Your Company</h1>
+      <h1 style={{ marginTop: 0 }}>{currentID ? 'Edit data' : 'List Your Company'}</h1>
 
       <Input
         name="company_name"

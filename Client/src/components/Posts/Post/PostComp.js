@@ -1,7 +1,6 @@
 import React from "react";
 import {
   EditOutlined,
-  EllipsisOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
 import { Card } from "antd";
@@ -15,13 +14,12 @@ const PostComp = ({ post }) => (
       <img
         alt="example"
         src={post.file}
-        style={{ width: "100%", height: "110px" }}
+        style={{ width: "100%", height: "105px", padding:"0 20px" }}
       />
     }
     actions={[
       <DeleteOutlined key="delete" />,
       <EditOutlined key="edit" />,
-      <EllipsisOutlined key="ellipsis" />,
     ]}
   >
     <Meta
