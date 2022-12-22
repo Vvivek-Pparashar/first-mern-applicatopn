@@ -45,8 +45,6 @@ const FormComp = ({ currentID, setCurrentID }) => {
   };
 
   const onfinish = () => {
-    setCurrentID(null);
-
     setPostData({
       company_name: "",
       email: "",

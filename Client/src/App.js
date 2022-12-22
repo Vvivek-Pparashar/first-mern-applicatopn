@@ -3,19 +3,24 @@ import { Col, Row, Layout } from "antd";
 import HeaderComp from "./components/Header/HeaderComp";
 import FormComp from "./components/Forms/FormComp";
 import PostsComp from "./components/Posts/PostsComp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "./actions/action";
 import "./App.css";
 
 const { Content } = Layout;
 
+console.log("start")
+
 const App = () => {
   const [currentID, setCurrentID] = useState(null);
   const dispatch = useDispatch();
+  let posts = useSelector((state) => state.posts);
+
+  console.log("vivek", posts.length)
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [currentID, dispatch]);
+  }, [currentID, dispatch, posts.length]);
 
   return (
     <Layout>

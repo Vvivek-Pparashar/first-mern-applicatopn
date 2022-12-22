@@ -5,8 +5,8 @@ import * as api from "../components/api";
 export const getPosts = () => async (dispatch) => {
   try {
     const data = await api.fetchPosts();
-    console.log('vivek', data);
-    dispatch({ type: 'FETCH_ALL', payload: data.data });
+    console.log("vivek", data);
+    dispatch({ type: "FETCH_ALL", payload: data.data });
   } catch (error) {
     console.log(error);
   }
@@ -27,6 +27,15 @@ export const updatePost = (id, post) => async (dispatch) => {
     const { data } = await api.updatePost(id, post);
 
     dispatch({ type: "UPDATE", payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id);
+    dispatch({ type: "DELETE", payload: id });
   } catch (error) {
     console.log(error);
   }

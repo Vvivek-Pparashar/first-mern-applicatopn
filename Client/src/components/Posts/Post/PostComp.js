@@ -1,13 +1,17 @@
 import React from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Card } from "antd";
+import { useDispatch } from "react-redux";
+import { deletePost } from "../../../actions/action";
 const { Meta } = Card;
 const PostComp = ({ post, setCurrentID }) => {
+  const dispatch = useDispatch();
 
-  const handleClick = ()=>{
-    console.log(post._id)
+  const handleClick = () => {
+    console.log(post._id);
     setCurrentID(post._id);
-  }
+  };
+
   return (
     <Card
       style={{
@@ -21,7 +25,12 @@ const PostComp = ({ post, setCurrentID }) => {
         />
       }
       actions={[
-        <DeleteOutlined key="delete" />,
+        <DeleteOutlined
+          key="delete"
+          onClick={() => {
+            dispatch(deletePost(post._id));
+          }}
+        />,
         <EditOutlined key="edit" onClick={handleClick} />,
       ]}
     >
