@@ -5,9 +5,11 @@ import App from "./App";
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from "redux";
 import reducers from './reducer'
-import thunk from "redux-thunk";
+import ReduxThunk from 'redux-thunk';
 
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const middlewares = [ReduxThunk];
+
+const store = createStore(reducers, compose(applyMiddleware(...middlewares)));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

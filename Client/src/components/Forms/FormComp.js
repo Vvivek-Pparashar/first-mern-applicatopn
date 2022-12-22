@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Button, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
-import { createPost } from "../api";
+import { createPost, updatePost } from "../api";
 import FileBase64 from "react-file-base64";
 
-const App = () => {
-  const currentID= 0;
-  // const posts = useSelector((state) => state.posts.find((p)=>p.id === currentID) : null);
+const FormComp = ({ currentID, setCurrentID }) => {
+  const post = useSelector((state) =>
+    currentID ? state.posts.find((p) => p._id === currentID) : null
+  );
+
   const [postData, setPostData] = useState({
     company_name: "",
     email: "",
@@ -16,24 +18,15 @@ const App = () => {
     file: "",
   });
 
-  // useEffect(()=>{
-  //   if(post) setPostData(post);
-  // }, [post])
-
-  console.log(postData);
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (event) => {
-    console.log(postData);
-    dispatch(createPost(postData));
-  };
+  const clear = () => {
+    setCurrentID(null);
 
-  const clear = ()=>{
-    // setCurrentID(null)
-  }
-  const onFinish = (values) => {
-    console.log(values);
     setPostData({
       company_name: "",
       email: "",
@@ -42,9 +35,30 @@ const App = () => {
       file: "",
     });
   };
+
+  const handleSubmit = () => {
+    if (currentID) {
+      dispatch(updatePost(currentID, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
+  };
+
+  const onfinish = () => {
+    setCurrentID(null);
+
+    setPostData({
+      company_name: "",
+      email: "",
+      website: "",
+      details: "",
+      file: "",
+    });
+  };
+
   return (
     <Form
-      onFinish={onFinish}
+      onFinish={onfinish}
       style={{
         backgroundColor: "white",
         paddingTop: "20px",
@@ -55,7 +69,9 @@ const App = () => {
         borderRadius: "10px",
       }}
     >
-      <h1 style={{ marginTop: 0 }}>{currentID ? 'Edit data' : 'List Your Company'}</h1>
+      <h1 style={{ marginTop: 0 }}>
+        {currentID ? "Edit data" : "List Your Company"}
+      </h1>
 
       <Input
         name="company_name"
@@ -122,15 +138,7 @@ const App = () => {
       </Button>
 
       <Button
-        onClick={() =>
-          setPostData({
-            company_name: "",
-            email: "",
-            website: "",
-            details: "",
-            file: "",
-          })
-        }
+        onClick={clear}
         type="primary"
         htmlType="submit"
         style={{ backgroundColor: "red", width: "90%", margin: "10px 0 30px" }}
@@ -140,4 +148,4 @@ const App = () => {
     </Form>
   );
 };
-export default App;
+export default FormComp;

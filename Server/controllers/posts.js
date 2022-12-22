@@ -15,19 +15,19 @@ const getAllPosts = async (req, res) => {
 // ============================ UPDATE THE POST ===========================
 
 const updatePost = async (req, res) => {
-  const { id, _id } = req.params;
+  const { id: postId } = req.params;
 
-  if (!mongoose.isValidObjectId(_id))
+  if (!mongoose.isValidObjectId(postId))
     return res.status(404).send("id not valid");
 
   try {
-    const new_post = { ...req.body, _id };
-    const post = await PostMessage.findByIdAndUpdate(_id, new_post, {
+    const post = await PostMessage.findByIdAndUpdate(postId, {...req.body, postId}, {
       new: true,
+      runValidators: true,
     });
     res.status(200).send({ post });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 };
 
